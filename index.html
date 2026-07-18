@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gereja Kalimantan Evangelis (GKE)</title>
+    <style>
+        /* --- RESET & VARIABEL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d3b66; /* Biru Tua Elegan */
+            --accent-color: #b89243;  /* Emas Mewah */
+            --bg-light: #faf9f6;      /* Putih Hangat/Krem Terang */
+            --text-dark: #2b2d42;     /* Abu Gelap */
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: DROPDOWN;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 3200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo h1 {
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 12px;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links button:hover {
+            color: var(--accent-color);
+            background-color: rgba(184, 146, 67, 0.08);
+        }
+
+        .nav-links button.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        /* --- HERO BANNER --- */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.95)), 
+                        url('https://images.unsplash.com/photo-1548625361-155deee26291?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            padding: 45px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .hero .subtema {
+            font-size: 14px;
+            color: #666;
+            max-width: 800px;
+            margin: 10px auto 0;
+            font-style: italic;
+            border-top: 1px dashed var(--accent-color);
+            padding-top: 8px;
+        }
+
+        /* --- MAIN CONTAINER & WINDOW PAGES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .tab-window {
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+
+        .tab-window.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-size: 28px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin-top: 8px;
+        }
+
+        /* --- CARD STYLE & TABLES --- */
+        .card-dasbor {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+
+        .card-dasbor h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        .badge-liturgi {
+            display: inline-block;
+            background-color: #fff0f6;
+            color: #d46b94;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            border: 1px solid #ffd6e7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            padding: 12px 12px;
+            text-align: center;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 12px;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .catatan-box {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--accent-color);
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .ol-liturgi {
+            padding-left: 20px;
+        }
+        
+        .ol-liturgi li {
+            margin-bottom: 5px;
+            font-size: 14.5px;
+        }
+
+        /* --- GRID UTAMA --- */
+        .grid-dua {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-dua, .navbar, .nav-links {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .nav-links { gap: 8px; margin-top: 15px; width: 100%; justify-content: center; }
+            th, td { font-size: 14px; padding: 10px; }
+        }
+
+        /* --- SEJARAH --- */
+        .sejarah-content {
+            background-color: var(--card-bg);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        /* --- GALERI --- */
+        .galeri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .galeri-item {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .galeri-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .galeri-info {
+            padding: 15px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="logo" onclick="bukaHalaman('jadwal')">
+                <h1>GKE<span> BARABAI</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><button id="btn-jadwal" class="active" onclick="bukaHalaman('jadwal')">Jadwal Minggu</button></li>
+                <li><button id="btn-kategorial" onclick="bukaHalaman('kategorial')">Ibadah Rumah Tangga & Kategorial</button></li>
+                <li><button id="btn-petugas" onclick="bukaHalaman('petugas')">Petugas Pelayan</button></li>
+                <li><button id="btn-sejarah" onclick="bukaHalaman('sejarah')">Sejarah GKE</button></li>
+                <li><button id="btn-galeri" onclick="bukaHalaman('galeri')">Galeri Kegiatan</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="hero">
+        <h2>STRUKTUR PELAYANAN GKE BARABAI</h2>
+        <div class="subtema">
+            <strong>Sub Tema:</strong> "Karena Firman Allah Itu Hidup dan Kuat dan Lebih Tajam dari pada Pedang Bermata Dua - Ibrani 4:12"
+        </div>
+    </section>
+
+    <!-- CONTAINER UTAMA -->
+    <div class="container">
+
+        <!-- JENDELA 1: JADWAL IBADAH UMUM (HARI MINGGU) -->
+        <div id="win-jadwal" class="tab-window active">
+            <h2 class="section-title">Pelayanan Hari Minggu</h2>
+            
+            <div class="grid-dua">
+                <!-- Minggu 5 Juli -->
+                <div class="card-dasbor">
+                    <h3>Minggu, 5 Juli 2026</h3>
+                    <div class="badge-liturgi">Liturgi: Bentuk I / Merah Muda (Pink)</div>
+                    <p><strong>Pembacaan Alkitab:</strong></p>
+                    <ul style="padding-left:20px; margin-bottom:10px; font-size:14.5px;">
+                        <li>Pembacaan Alkitab: Kejadian 24:34-49</li>
+                        <li>Pemberitaan Firman: Matius 11:16-19</li>
+                    </ul>
+                    <button style="background: var(--primary-color); color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:13px;" onclick="bukaModalLiturgi('minggu1')">Lihat Alur Liturgi Lengkap</button>
+                </div>
+
+                <!-- Minggu 12 Juli -->
+                <div class="card-dasbor">
+                    <h3>Minggu, 12 Juli 2026</h3>
+                    <div class="badge-liturgi">Liturgi Khusus: Hari Perempuan GKE / Merah Muda</div>
+                    <p style="font-size:14.5px; margin-top:5px;">Ibadah Khusus dalam rangka <strong>Perayaan Hari Perempuan GKE</strong>.</p>
+                    <div class="catatan-box">
+                        <strong>Catatan Pelayanan:</strong> Petugas ibadah dilaksanakan oleh seksi <strong>SPPER</strong>.
+                    </div>
+                </div>
+
+                <!-- Minggu 19 Juli -->
+               <div class="card-dasbor">
+                    <h3>Minggu, 19 Juli 2026</h3>
+                    <div class="badge-liturgi">Liturgi: Khusus</div>
+                    <p><strong>Pembacaan Alkitab:</strong></p>
+                    <ul style="padding-left:20px; margin-bottom:10px; font-size:14.5px;">
+                        <li>Pembacaan Alkitab: Kejadian 24:34-49</li>
+                        <li>Pemberitaan Firman: Matius 11:16-19</li>
+                    </ul>
+                    <button style="background: var(--primary-color); color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:13px;" onclick="bukaModalLiturgi('minggu3')">Lihat Alur Liturgi Lengkap</button>
+                </div>
+
+                <!-- Minggu 26 Juli -->
+                <div class="card-dasbor">
+                    <h3>Minggu, 26 Juli 2026</h3>
+                    <div class="badge-liturgi">Liturgi: Bentuk IV / Merah Muda</div>
+                    <p><strong>Pembacaan Alkitab:</strong></p>
+                    <ul style="padding-left:20px; margin-bottom:10px; font-size:14.5px;">
+                        <li>Pembacaan Alkitab: Kejadian 29:15-30</li>
+                        <li>Pemberitaan Firman: Matius 13:31-35</li>
+                    </ul>
+                    <button style="background: var(--primary-color); color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:13px;" onclick="bukaModalLiturgi('minggu4')">Lihat Alur Liturgi Lengkap</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- JENDELA 2: IBADAH RUMAH TANGGA & KATEGORIAL -->
+        <div id="win-kategorial" class="tab-window">
+            <h2 class="section-title">Ibadah Rumah Tangga</h2>
+            
+            <!-- Ibadah Rumah Tangga -->
+            <div class="card-dasbor">
+                <h3>A. Ibadah Rumah Tangga</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hari / Tanggal</th>
+                            <th>Waktu</th>
+                            <th>Tempat / Kediaman</th>
+                            <th>Petugas Pelayan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sabtu, 04 Juli 2026</td>
+                            <td>17:00 WITA</td>
+                            <td>Kel. Citra Hapsari <span style="color: green; font-weight: bold;">Tuhan Memberkati Keluarga!</span></td>
+                            <td>Pdt. Siska P. / Dkn. Robert Tambing</td>
+                        </tr>
+                        <tr>
+                            <td>Sabtu, 18 Juli 2026</td>
+                            <td>17:00 WITA</td>
+                            <td>Kel. Ath. Sibarani <span style="color: green; font-weight: bold;">Rumah Tangga Bahagia!</span></td>
+                            <td>Pdt. Siska P. / Pnt. RK Bangun</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Ibadah SPPER & SPB -->
+            <div class="grid-dua">
+                <div class="card-dasbor">
+                    <h3>B. Ibadah SPPER (Perempuan)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hari / Tanggal</th>
+                                <th>Waktu</th>
+                                <th>Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Minggu, 05 Juli 2026</td>
+                                <td>16:30 WITA</td>
+                                <td>Pendeta / Ny.</td>
+                            </tr>
+                            <tr>
+                                <td>Minggu, 19 Juli 2026</td>
+                                <td>16:30 WITA</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-dasbor">
+                    <h3>C. Ibadah SPB (Bapak)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hari / Tanggal</th>
+                                <th>Waktu</th>
+                                <th>Tempat</th>
+                                <th>Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Minggu, 26 Juli 2026</td>
+                                <td>17:00 WITA</td>
+                                <td>Pastori</td>
+                                <td>Pdt. Siska P. / -</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SPPR & SHM -->
+            <div class="grid-dua">
+                <div class="card-dasbor">
+                    <h3>D. SPPR & PAK (Pemuda Remaja)</h3>
+                    <div style="padding: 15px; background: #f1f5f9; border-radius: 6px; font-weight: 600; text-align: center; color: #64748b;">
+                        STATUS: LIBUR
+                    </div>
+                </div>
+
+                <div class="card-dasbor">
+                    <h3>E. Sekolah Hari Minggu (SHM)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Tempat Pelaksanaan</th>
+                                <th>Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Setiap Hari Minggu</td>
+                                <td>Gedung Gereja Oikumene Alfa & Omega Yonif 621/Mtg</td>
+                                <td>Guru SHM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- JENDELA 3: DASBOR PETUGAS PELAYAN -->
+        <div id="win-petugas" class="tab-window">
+            <h2 class="section-title">Petugas Pelayan Ibadah Minggu</h2>
+            <div class="card-dasbor">
+                <h3>Daftar Pengkhotbah & Liturgos Utama - Juli 2026</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal Ibadah</th>
+                            <th>Pengkhotbah (P)</th>
+                            <th>Liturgos (L)</th>
+                            <th>Keterangan Petugas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>5 Juli 2026</strong></td>
+                            <td>Pdt. Siska Pingamiani, S.Th</td>
+                            <td>Dkn. Kristina Sihaloho</td>
+                            <td>Liturgos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>12 Juli 2026</strong></td>
+                            <td>Pdt. Siska Pingamiani, S.Th</td>
+                            <td>Pnt. Damaris Bubun</td>
+                            <td><strong style="color:var(--accent-color)">Petugas SPPER</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>19 Juli 2026</strong></td>
+                            <td>Pdt. Siska Pingamiani, S.Th</td>
+                            <td>Pnt. Cosmos Sembiring</td>
+                            <td><strong style="color:var(--accent-color)">Anak dibantu Majelis</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>26 Juli 2026</strong></td>
+                            <td>Pdt. Siska Pingamiani, S.Th</td>
+                            <td>Dkn. Robert Tambing</td>
+                            <td>Liturgos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- JENDELA 4: SEJARAH GKE -->
+        <div id="win-sejarah" class="tab-window">
+            <h2 class="section-title">Sejarah Berdirinya GKE</h2>
+            <div class="sejarah-content">
+                <p><strong>Gereja Kalimantan Evangelis (GKE)</strong> adalah salah satu organisasi gereja Kristen Protestan tertua dan terbesar di pulau Kalimantan. Cikal bakal berdirinya GKE ditandai dengan bersandarnya para misionaris perdana utusan dari <em>Rheinische Missionsgesellschaft</em> (RMG) Jerman pada tanggal <strong>10 April 1835</strong>.</p>
+                <br>
+                <p>Pada masa awal pergerakannya, badan ini dinamakan Gereja Dayak Evangelis (GDE). Namun seiring berjalannya pelayanan jemaat yang berkembang luas melintasi batas geografis wilayah Kalimantan Barat, Tengah, Selatan, hingga Timur, nama persekutuan resmi diubah menjadi Gereja Kalimantan Evangelis.</p>
+                <br>
+                <p>Saat ini, terkhusus bagi GKE Barabai, gereja terus aktif berkomitmen menghadirkan buah kedamaian, wadah perwujudan kasih, serta memberikan dampak kebaikan rohani yang nyata bagi seluruh lapisan masyarakat jemaat di lingkungannya.</p>
+                <br>
+                <br>
+                <p>Kami membuka Portal Berkat bagi anda yang yang ingin Memberkati Pelayanan, Silahkan kirim ke ... Silahkan lapor ke Bendahara: ...</p>
+                <p>Tuhan Membalas Kebaikanmu dengan Berlimpah! - Lukas 6:38</p>
+            </div>
+        </div>
+
+        <!-- JENDELA 5: GALERI KEGIATAN -->
+        <div id="win-galeri" class="tab-window">
+            <h2 class="section-title">Galeri Kegiatan Jemaat</h2>
+            <div class="galeri-grid">
+                <!-- FOTO KEGIATAN JEMAAT -->
+                <div class="galeri-item">
+                    <img src="KEBERSAMAAN.jpeg" alt="Persekutuan Jemaat SPPER">
+                    <div class="galeri-info">
+                        <h4>Persekutuan Jemaat SPPER</h4>
+                        <p>Kebersamaan dan sukacita pelayanan kaum perempuan SPPER GKE Barabai di altar gereja.</p>
+                    </div>
+                </div>
+                <div class="galeri-item">
+                    <img src="PELAYANAN.jpeg" alt="Petugas Liturgos SPPER">
+                    <div class="galeri-info">
+                        <h4>Pelayan Liturgi Hari Perempuan GKE</h4>
+                        <p>Para petugas liturgos dari seksi SPPER yang melayani ibadah khusus dengan hikmat.</p>
+                    </div>
+                </div>
+                <div class="galeri-item">
+                    <img src="BERKAT.jpeg" alt="Perayaan Tumpeng Hari Perempuan GKE">
+                    <div class="galeri-info">
+                        <h4>Ucapan Syukur Perayaan Hari Perempuan</h4>
+                        <p>Pemotongan tumpeng bersama pendeta dan majelis jemaat dalam momentum ucapan syukur.</p>
+                    </div>
+                </div>
+                <div class="galeri-item">
+                    <img src="DOORPRIZE.jpeg" alt="Penyerahan Bingkisan Tali Kasih">
+                    <div class="galeri-info">
+                        <h4>Tali Kasih SPPER</h4>
+                        <p>Penyerahan bingkisan kasih sebagai wujud kepedulian nyata persekutuan perempuan.</p>
+                    </div>
+                </div>
+                <div class="galeri-item">
+                    <img src="IBADAH.jpeg" alt="Suasana Ibadah Jemaat">
+                    <div class="galeri-info">
+                        <h4>Ibadah Raya Minggu</h4>
+                        <p>Suasana ruang utama gereja yang dipenuhi jemaat yang beribadah bersama dengan tertib.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL POPUP UNTUK DETAIL LITURGI -->
+    <div id="modalLiturgi" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:white; padding:30px; border-radius:8px; max-width:600px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+            <h3 id="modalTitle" style="color:var(--primary-color); margin-bottom:15px; border-bottom:2px solid var(--accent-color); padding-bottom:5px;"></h3>
+            <div id="modalBody"></div>
+            <button style="margin-top:20px; background:var(--text-dark); color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;" onclick="tutupModalLiturgi()">Tutup</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Gereja Kalimantan Evangelis (GKE) Barabai. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <!-- JAVASCRIPT SISTEM JENDELA & POPUP -->
+    <script>
+        function bukaHalaman(namaHalaman) {
+            const semuaJendela = document.querySelectorAll('.tab-window');
+            semuaJendela.forEach(jendela => jendela.classList.remove('active'));
+
+            const semuaTombol = document.querySelectorAll('.nav-links button');
+            semuaTombol.forEach(tombol => tombol.classList.remove('active'));
+
+            document.getElementById('win-' + namaHalaman).classList.add('active');
+            document.getElementById('btn-' + namaHalaman).classList.add('active');
+            
+            window.scrollTo({
+                top: document.querySelector('header').offsetHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // Konten Dinamis untuk Susunan Acara Liturgi
+        const dataLiturgi = {
+            minggu1: {
+                title: "Detail Susunan Liturgi - 5 Juli 2026 (Bentuk I)",
+                html: `<ol class="ol-liturgi">
+                        <li><strong>PERSIAPAN/INTROITUS:</strong> Doa Konsistori & Berita Jemaat</li>
+                        <li><strong>MENYANYI:</strong> PKJ. 242:1-2 “SEINDAH SIANG DISINARI TERANG” <em>(Jemaat Berdiri)</em></li>
+                        <li>Salam Presbiter</li>
+                        <li><strong>VOTUM & SALAM</strong></li>
+                        <li><strong>MENYANYI:</strong> PKJ. 43:1-4 “TUHAN, KAMI BERLUMURAN DOSA”</li>
+                        <li><strong>PENGAKUAN DOSA</strong></li>
+                        <li><strong>BERITA ANUGERAH & PETUNJUK HIDUP BARU</strong> <em>(Jemaat Berdiri)</em></li>
+                        <li><strong>MENYANYI KP:</strong> “DENGAN APA KAN KU BALAS - SYMPHONI WORSHIP”</li>
+                        <li><strong>PETUNJUK HIDUP BARU</strong> <em>(Jemaat Duduk)</em></li>
+                        <li><strong>MENYANYI KP:</strong> “KASIH SETIAMU - MARIA SHANDI”</li>
+                        <li>Doa Syukur dan Doa Pembacaan Alkitab</li>
+                        <li><strong>PEMBACAAN ALKITAB:</strong> Kejadian 24:34-49</li>
+                        <li>Pengakuan Iman</li>
+                        <li><strong>MENYANYI/KOOR:</strong> PKJ. 120:1-3 “ALLAH BAPA, KAMI PUJI ENGKAU”</li>
+                        <li><strong>PEMBERITAAN FIRMAN TUHAN:</strong> Matius 11:16-19</li>
+                        <li><strong>MENYANYI:</strong> NKB. 204:1, 2 & 4 “DI DUNIA YANG PENUH CEMAR”</li>
+                        <li>Doa Syafaat</li>
+                        <li><strong>PERSEMBAHAN SYUKUR I & II:</strong> Nas Pengantar & Doa Persembahan</li>
+                        <li><strong>MENYANYI:</strong> NKB. 208:1 DST “TABUR WAKTU PAGI”</li>
+                        <li><strong>BERKAT</strong></li>
+                       </ol>`
+            },
+            minggu3: {
+                title: "Detail Susunan Liturgi - 19 Juli 2026 (Hari Anak GKE)",
+    html: `<ol class="ol-liturgi">
+        <li><strong>PERSIAPAN/INTROITUS:</strong> Doa Konsistori & Berita Jemaat</li>
+        <li><strong>PENGANTAR:</strong> L (Anak 1) & Menyanyi KC No. 7:1-3 “Tahukah Kamu Jumlah Bintang” <em>(Jemaat Berdiri)</em></li>
+        <li>Salam Presbiter</li>
+        <li><strong>MARS ANAK GKE:</strong> L (Anak 2) & Menyanyi Mars Anak GKE</li>
+        <li><strong>VOTUM DAN SALAM:</strong> Pendeta + Jemaat</li>
+        <li><strong>MENYANYI:</strong> KC No. 90:1-2 “Yesus Sayang Padaku” <em>(Jemaat Duduk)</em></li>
+        <li><strong>LITANI PENGAKUAN:</strong> Pengakuan Dosa dipimpin oleh Liturgos (Anak)</li>
+        <li><strong>BERITA ANUGERAH:</strong> Pendeta & Jemaat Menyanyi KC No. 23:1 “Anak-anak Puji Nama Allah” <em>(Jemaat Berdiri)</em></li>
+        <li><strong>PEMBACAAN ALKITAB:</strong> Liturgos (Anak) - Kejadian 28:10-22 & Lukas 18:15-17 <em>(Jemaat Duduk)</em></li>
+        <li><strong>MENYANYI:</strong> KC No. 136:1 “Kitab Suci Hartaku”</li>
+        <li><strong>PENAMPILAN ANAK-ANAK:</strong> Persembahan Pujian / Koor Anak (Opsional)</li>
+        <li><strong>PERSEMBAHAN SYUKUR:</strong> Nas Pengantar (Yakobus 1:17a) & Doa Persembahan</li>
+        <li><strong>MENYANYI:</strong> PKJ No. 216:1-dst “Berlimpah Sukacita di Hatiku”</li>
+        <li><strong>PENGAKUAN IMAN:</strong> Menyanyikan KC No. 235:1-2 “Aku Percaya” <em>(Jemaat Berdiri)</em></li>
+        <li><strong>PEMBERITAAN FIRMAN TUHAN:</strong> Khotbah oleh Pendeta <em>(Jemaat Duduk)</em></li>
+        <li><strong>Doa Syafaat</strong> (Diakhiri Doa Bapa Kami)</li>
+        <li><strong>HIMNE ANAK GKE:</strong> Jemaat Bersama-sama Menyanyikan Himne Anak GKE</li>
+        <li><strong>BERKAT DAN PENGUTUSAN:</strong> Pendeta & Respon Jemaat Amin 3x (Haleluya) <em>(Jemaat Berdiri)</em></li>
+        <li><strong>PENUTUP:</strong> Salam Presbiter & Doa Konsistori <em>(Jemaat Duduk)</em></li>
+    </ol>`
+            },
+            minggu4: {
+                title: "Detail Susunan Liturgi - 26 Juli 2026 (Bentuk IV)",
+                html: `<ol class="ol-liturgi">
+                        <li><strong>PERSIAPAN/INTROITUS:</strong> Doa Konsistori & Berita Jemaat</li>
+                        <li><strong>MENYANYI:</strong> PKJ. 7:1-2 “BERSYUKURLAH PADA TUHAN” <em>(Jemaat Berdiri)</em></li>
+                        <li>Salam Presbiter</li>
+                        <li><strong>VOTUM DAN SALAM</strong></li>
+                        <li><strong>LITANI PENGAKUAN:</strong> Responsorial (L + J)</li>
+                        <li><strong>MENYANYI:</strong> KJ No. 42:1 “Tuhan Kasihani” <em>(Jemaat Duduk)</em></li>
+                        <li><strong>PEMBACAAN ALKITAB:</strong> Kejadian 29:15-30</li>
+                        <li><strong>MENYANYI/KOOR:</strong> PKJ. 15:1 “KUSIAPKAN HATIKU, TUHAN”</li>
+                        <li><strong>PEMBERITAAN FIRMAN TUHAN:</strong> Mat. 13:31-35</li>
+                        <li>Doa Syafaat</li>
+                        <li><strong>PERSEMBAHAN SYUKUR:</strong> Nas Pengantar & Doa Persembahan</li>
+                        <li><strong>MENYANYI:</strong> PKJ. 265:1 DST “BUKAN KARNA UPAHMU”</li>
+                        <li><strong>PENGAKUAN IMAN DAN BERKAT</strong> <em>(Jemaat Berdiri)</em></li>
+                        <li><strong>PENGUTUSAN DAN BERKAT:</strong> Amin 3x (Haleluya)</li>
+                       </ol>`
+            }
+        };
+
+        function bukaModalLiturgi(key) {
+            const modal = document.getElementById('modalLiturgi');
+            document.getElementById('modalTitle').innerText = dataLiturgi[key].title;
+            document.getElementById('modalBody').innerHTML = dataLiturgi[key].html;
+            modal.style.display = 'flex';
+        }
+
+        function tutupModalLiturgi() {
+            document.getElementById('modalLiturgi').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
